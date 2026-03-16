@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="ghostBody" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#b87aed"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Breathing glow -->
+  <circle cx="256" cy="250" r="200" fill="url(#glow)">
+    <animate attributeName="r" values="190;210;190" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Floating ghost group -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="2.5s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1; 0.45 0 0.55 1"/>
+
+    <!-- Ghost body with animated wavy bottom -->
+    <path fill="url(#ghostBody)" stroke="#6d28d9" stroke-width="3">
+      <animate attributeName="d" dur="2s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1; 0.45 0 0.55 1"
+        values="
+          M 256 52 C 160 52, 100 130, 100 230 L 100 380 C 100 395, 112 405, 122 395 C 135 382, 148 398, 160 405 C 175 414, 185 395, 198 390 C 210 386, 218 404, 232 408 C 244 412, 250 398, 256 394 C 262 398, 268 412, 280 408 C 294 404, 302 386, 314 390 C 327 395, 337 414, 352 405 C 364 398, 377 382, 390 395 C 400 405, 412 395, 412 380 L 412 230 C 412 130, 352 52, 256 52 Z;
+          M 256 52 C 160 52, 100 130, 100 230 L 100 380 C 100 390, 115 410, 128 400 C 140 390, 150 405, 165 412 C 178 418, 190 398, 202 393 C 214 388, 222 410, 236 414 C 248 418, 254 402, 256 398 C 258 402, 264 418, 276 414 C 290 410, 298 388, 310 393 C 322 398, 334 418, 347 412 C 362 405, 372 390, 384 400 C 397 410, 412 390, 412 380 L 412 230 C 412 130, 352 52, 256 52 Z;
+          M 256 52 C 160 52, 100 130, 100 230 L 100 380 C 100 395, 112 405, 122 395 C 135 382, 148 398, 160 405 C 175 414, 185 395, 198 390 C 210 386, 218 404, 232 408 C 244 412, 250 398, 256 394 C 262 398, 268 412, 280 408 C 294 404, 302 386, 314 390 C 327 395, 337 414, 352 405 C 364 398, 377 382, 390 395 C 400 405, 412 395, 412 380 L 412 230 C 412 130, 352 52, 256 52 Z
+        "/>
+    </path>
+
+    <!-- LEFT EYE -->
+    <!-- Dark eye socket -->
+    <ellipse cx="210" cy="225" rx="32" ry="38" fill="#1a1a2e">
+      <!-- Both blink ~2s, left blinks alone ~5s, both blink ~7s. Slower close/open. -->
+      <animate attributeName="ry" dur="8s" repeatCount="indefinite"
+        values="38;38;  10;1;1;10;  38;38;38;  10;1;1;10;  38;38;  10;1;1;10;  38;38"
+        keyTimes="0;0.20; 0.23;0.26;0.29;0.32; 0.35;0.55;0.58; 0.61;0.64;0.67;0.70; 0.73;0.82; 0.85;0.88;0.91;0.94; 0.97;1"/>
+    </ellipse>
+    <!-- Left highlight -->
+    <circle cx="220" cy="211" r="14" fill="white">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+        values="0.9;0.9; 0;0;0;0; 0.9;0.9;0.9; 0;0;0;0; 0.9;0.9; 0;0;0;0; 0.9;0.9"
+        keyTimes="0;0.20; 0.23;0.26;0.29;0.32; 0.35;0.55;0.58; 0.61;0.64;0.67;0.70; 0.73;0.82; 0.85;0.88;0.91;0.94; 0.97;1"/>
+    </circle>
+
+    <!-- RIGHT EYE -->
+    <!-- Dark eye socket -->
+    <ellipse cx="302" cy="225" rx="32" ry="38" fill="#1a1a2e">
+      <!-- Both blink ~2s, right winks alone ~4s, both blink ~7s. Slower close/open. -->
+      <animate attributeName="ry" dur="8s" repeatCount="indefinite"
+        values="38;38;  10;1;1;10;  38;38;  10;1;1;10;  38;38;38;  10;1;1;10;  38;38"
+        keyTimes="0;0.20; 0.23;0.26;0.29;0.32; 0.35;0.43; 0.46;0.49;0.52;0.55; 0.58;0.73;0.82; 0.85;0.88;0.91;0.94; 0.97;1"/>
+    </ellipse>
+    <!-- Right highlight -->
+    <circle cx="312" cy="211" r="14" fill="white">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+        values="0.9;0.9; 0;0;0;0; 0.9;0.9; 0;0;0;0; 0.9;0.9;0.9; 0;0;0;0; 0.9;0.9"
+        keyTimes="0;0.20; 0.23;0.26;0.29;0.32; 0.35;0.43; 0.46;0.49;0.52;0.55; 0.58;0.73;0.82; 0.85;0.88;0.91;0.94; 0.97;1"/>
+    </circle>
+
+    <!-- Mouth -->
+    <ellipse cx="256" cy="300" rx="28" ry="22" fill="#1a1a2e"/>
+
+    <!-- Tongue -->
+    <ellipse cx="256" cy="312" rx="15" ry="10" fill="#6d28d9" opacity="0.7"/>
+
+    <!-- Cheek blush -->
+    <circle cx="175" cy="265" r="24" fill="#c084fc" opacity="0.3"/>
+    <circle cx="337" cy="265" r="24" fill="#c084fc" opacity="0.3"/>
+  </g>
+</svg>

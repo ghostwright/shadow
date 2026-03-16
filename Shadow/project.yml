@@ -1,0 +1,89 @@
+name: Shadow
+options:
+  bundleIdPrefix: com.shadow
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "16.4"
+  generateEmptyDirectories: true
+
+packages:
+  WhisperKit:
+    url: https://github.com/argmaxinc/WhisperKit.git
+    from: "0.15.0"
+  mlx-swift-lm:
+    url: https://github.com/ml-explore/mlx-swift-lm.git
+    from: "2.30.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ARCHS: arm64
+    VALID_ARCHS: arm64
+
+targets:
+  ShadowTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: ShadowTests
+    dependencies:
+      - target: Shadow
+      - package: mlx-swift-lm
+        products:
+          - MLXLLM
+          - MLXLMCommon
+          - MLXVLM
+          - MLXEmbedders
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        PRODUCT_BUNDLE_IDENTIFIER: com.shadow.app.tests
+        SWIFT_STRICT_CONCURRENCY: minimal
+        SWIFT_INCLUDE_PATHS: "$(SRCROOT)/Shadow/Generated"
+        HEADER_SEARCH_PATHS: "$(SRCROOT)/Shadow/Generated"
+        OTHER_SWIFT_FLAGS:
+          - "-Xcc"
+          - "-fmodule-map-file=$(SRCROOT)/Shadow/Generated/shadow_coreFFI.modulemap"
+
+  Shadow:
+    type: application
+    platform: macOS
+    sources:
+      - path: Shadow
+        excludes:
+          - "Generated/shadow_coreFFI.h"
+          - "Generated/shadow_coreFFI.modulemap"
+    dependencies:
+      - package: WhisperKit
+      - package: mlx-swift-lm
+        products:
+          - MLXLLM
+          - MLXLMCommon
+          - MLXVLM
+          - MLXEmbedders
+      - framework: libshadow_core.a
+        embed: false
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        PRODUCT_BUNDLE_IDENTIFIER: com.shadow.app
+        INFOPLIST_KEY_LSUIElement: true
+        INFOPLIST_KEY_NSScreenCaptureUsageDescription: "Shadow records your screen to build a searchable visual memory."
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "Shadow captures audio for meeting transcription."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "Shadow transcribes audio recordings for searchable meeting recall."
+        CODE_SIGN_ENTITLEMENTS: Shadow.entitlements
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGNING_REQUIRED: "NO"
+        ENABLE_HARDENED_RUNTIME: true
+        SWIFT_INCLUDE_PATHS: "$(SRCROOT)/Shadow/Generated"
+        LIBRARY_SEARCH_PATHS: "$(SRCROOT)"
+        HEADER_SEARCH_PATHS: "$(SRCROOT)/Shadow/Generated"
+        OTHER_SWIFT_FLAGS:
+          - "-Xcc"
+          - "-fmodule-map-file=$(SRCROOT)/Shadow/Generated/shadow_coreFFI.modulemap"
+        OTHER_LDFLAGS:
+          - "-lz"
+          - "-lsqlite3"
+        ENABLE_APP_SANDBOX: false
+        SWIFT_STRICT_CONCURRENCY: minimal

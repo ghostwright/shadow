@@ -1,0 +1,43 @@
+*.DS_Store
+*.profraw
+*.profdata
+.build/
+target/
+*.o
+*.a
+*.dylib
+xcuserdata/
+DerivedData/
+build/
+.swiftpm/
+
+# Generated artifacts (rebuildable)
+Shadow/Shadow/Generated/
+Shadow/Shadow.xcodeproj/
+
+# ML model assets — provisioned via scripts/provision-clip-models.py
+# NOT committed to git (190MB binary). Must be provisioned before build.
+# See docs/progress.md M3 section for provisioning instructions.
+Shadow/Shadow/Resources/Models/*.mlpackage/
+Shadow/Shadow/Resources/Models/*.mlpackage/**
+Shadow/Shadow/Resources/Models/clip_tokenizer.json
+
+# User-specific Claude Code config
+.claude/settings.local.json
+
+# Local dev notes and review documents
+local/
+.mcp.json
+
+# Internal docs (specs, prompts, progress logs, research)
+# These are development artifacts, not public documentation.
+# Public docs (README, SECURITY, PRIVACY, CONTRIBUTING, LICENSE) live at repo root.
+docs/
+
+# Internal product vision and build plan
+idea.md
+build.md
+
+# Claude Code AI workflow instructions (not for public contributors)
+CLAUDE.md
+.claude/

@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f0a1a"/>
+      <stop offset="50%" stop-color="#1a1030"/>
+      <stop offset="100%" stop-color="#120d20"/>
+    </linearGradient>
+    <linearGradient id="ghostFill" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#b87aed"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.22" cy="0.5" r="0.35">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.8" cy="0.3" r="0.3">
+      <stop offset="0%" stop-color="#6d28d9" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Subtle grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.04"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)"/>
+  <rect width="1280" height="640" fill="url(#glow)"/>
+  <rect width="1280" height="640" fill="url(#glow2)"/>
+
+  <!-- Subtle bottom accent line -->
+  <rect x="0" y="630" width="1280" height="2" fill="#8b5cf6" opacity="0.3"/>
+
+  <!-- Ghost icon (left side) -->
+  <g transform="translate(140, 160) scale(2.2)">
+    <!-- Ghost body -->
+    <path d="
+      M 70 12
+      C 42 12, 26 36, 26 62
+      L 26 102
+      C 26 106, 29 109, 32 106
+      C 35 103, 38 108, 42 110
+      C 46 112, 48 106, 52 104
+      C 55 103, 57 109, 60 110
+      C 63 112, 65 107, 70 106
+      C 75 107, 77 112, 80 110
+      C 83 109, 85 103, 88 104
+      C 92 106, 94 112, 98 110
+      C 102 108, 105 103, 108 106
+      C 111 109, 114 106, 114 102
+      L 114 62
+      C 114 36, 98 12, 70 12
+      Z
+    " fill="url(#ghostFill)" stroke="#6d28d9" stroke-width="1.5"/>
+
+    <!-- Left eye -->
+    <ellipse cx="55" cy="58" rx="9" ry="11" fill="#1a1a2e"/>
+    <circle cx="58" cy="54" r="4" fill="white" opacity="0.9"/>
+
+    <!-- Right eye -->
+    <ellipse cx="85" cy="58" rx="9" ry="11" fill="#1a1a2e"/>
+    <circle cx="88" cy="54" r="4" fill="white" opacity="0.9"/>
+
+    <!-- Mouth -->
+    <ellipse cx="70" cy="78" rx="8" ry="6" fill="#1a1a2e"/>
+    <ellipse cx="70" cy="81" rx="4" ry="3" fill="#6d28d9" opacity="0.6"/>
+
+    <!-- Cheeks -->
+    <circle cx="45" cy="69" r="7" fill="#c084fc" opacity="0.2"/>
+    <circle cx="95" cy="69" r="7" fill="#c084fc" opacity="0.2"/>
+  </g>
+
+  <!-- "Shadow" text with gradient and glow -->
+  <defs>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#e2d6ff"/>
+      <stop offset="100%" stop-color="#c4b5fd"/>
+    </linearGradient>
+    <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-color="#8b5cf6" flood-opacity="0.4"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <text x="530" y="255" font-family="'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="108" font-weight="800" fill="url(#textGrad)" letter-spacing="-3" filter="url(#textGlow)">Shadow</text>
+
+  <!-- Tagline -->
+  <text x="530" y="310" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="28" fill="#a78bfa" letter-spacing="0.5">Your computer was paying attention the whole time.</text>
+
+  <!-- Feature pills -->
+  <g transform="translate(530, 350)">
+    <!-- Pill 1 -->
+    <rect x="0" y="0" width="170" height="36" rx="18" fill="#8b5cf6" opacity="0.15" stroke="#8b5cf6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="85" y="23" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="14" fill="#c4b5fd" text-anchor="middle" font-weight="500">14 Modalities</text>
+
+    <!-- Pill 2 -->
+    <rect x="185" y="0" width="200" height="36" rx="18" fill="#8b5cf6" opacity="0.15" stroke="#8b5cf6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="285" y="23" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="14" fill="#c4b5fd" text-anchor="middle" font-weight="500">Proactive Intelligence</text>
+
+    <!-- Pill 3 -->
+    <rect x="400" y="0" width="150" height="36" rx="18" fill="#8b5cf6" opacity="0.15" stroke="#8b5cf6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="475" y="23" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="14" fill="#c4b5fd" text-anchor="middle" font-weight="500">All On-Device</text>
+  </g>
+
+  <!-- Second row pills -->
+  <g transform="translate(530, 400)">
+    <rect x="0" y="0" width="130" height="36" rx="18" fill="#8b5cf6" opacity="0.15" stroke="#8b5cf6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="65" y="23" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="14" fill="#c4b5fd" text-anchor="middle" font-weight="500">Open Source</text>
+
+    <rect x="145" y="0" width="170" height="36" rx="18" fill="#8b5cf6" opacity="0.15" stroke="#8b5cf6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="230" y="23" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="14" fill="#c4b5fd" text-anchor="middle" font-weight="500">Native macOS</text>
+
+    <rect x="330" y="0" width="220" height="36" rx="18" fill="#8b5cf6" opacity="0.15" stroke="#8b5cf6" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="440" y="23" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="14" fill="#c4b5fd" text-anchor="middle" font-weight="500">Computer-Use Training</text>
+  </g>
+
+  <!-- Bottom info -->
+  <text x="530" y="520" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="18" fill="#6b7280">Swift + Rust</text>
+  <circle cx="640" cy="515" r="2" fill="#4b5563"/>
+  <text x="655" y="520" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="18" fill="#6b7280">Apple Silicon</text>
+  <circle cx="790" cy="515" r="2" fill="#4b5563"/>
+  <text x="805" y="520" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="18" fill="#6b7280">MIT License</text>
+
+  <!-- ghostwright org -->
+  <text x="530" y="560" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif" font-size="16" fill="#4b5563">ghostwright/shadow</text>
+</svg>

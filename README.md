@@ -23,7 +23,9 @@ We are open-sourcing Shadow because the capture layer is the hardest problem to 
 
 ## Shadow in Action
 
-<!-- GIF/video placeholders - to be recorded -->
+<p align="center">
+  <img src="demo.gif" width="720" alt="Shadow in action">
+</p>
 
 <details>
 <summary><strong>Onboarding</strong></summary>

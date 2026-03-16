@@ -23,7 +23,7 @@ cd shadow
 ./scripts/build-rust.sh
 
 # Download CLIP models (~190 MB, one-time)
-pip3 install huggingface_hub
+pip3 install huggingface_hub open_clip_torch
 python3 scripts/provision-clip-models.py
 
 # Generate Xcode project and build

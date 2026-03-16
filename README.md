@@ -17,7 +17,7 @@
 
 Shadow is a personal intelligence engine for macOS. It captures every signal your computer produces while you work, turns raw behavior into structured understanding, and acts on what it learns. Screen, audio, keystrokes, the full accessibility tree, clipboard, files, git, terminal, search queries, notifications, calendar, system context. All of it, synchronized by timestamp, stored locally, processed on-device. Crash-proof recording that loses at most ten seconds on a force quit. Automatic sleep/wake recovery with display hot-plug detection. Under 3% CPU average. Under 600 MB per day.
 
-This is not a screen recorder. Shadow generates episodes from your work, runs a continuous heartbeat that pushes proactive observations, operates vision models and LLMs entirely on Apple Silicon, fine-tunes its own grounding models on your behavior, replays learned procedures through a safety-gated computer-use engine, and exposes a 25-tool agent runtime with streaming UI. It captures how you work, learns why, and starts helping before you ask.
+This is not a screen recorder. Shadow generates episodes from your work, runs a continuous heartbeat that pushes proactive observations, operates vision models and LLMs entirely on Apple Silicon, fine-tunes its own grounding models on your behavior, replays learned procedures through a safety-gated computer-use engine, and exposes a 26-tool agent runtime with streaming UI. It captures how you work, learns why, and starts helping before you ask.
 
 We are open-sourcing Shadow because the capture layer is the hardest problem to solve and we have solved it. The next layer, memory graphs, MCP servers, personal models, agents trained on real human behavior, belongs to the community. Build on top of what is here.
 
@@ -69,7 +69,7 @@ Every existing tool looks at one or two modalities. Shadow captures fourteen.
 | Proactive intelligence | Heartbeat with push suggestions | No | No | No | No |
 | On-device LLM | Qwen 7B/32B via MLX | No | No | No | Cloud API |
 | Vision grounding | ShowUI-2B + LoRA fine-tuning | No | No | No | Screenshot-only |
-| Computer-use agent | 25-tool agent + Mimicry system | No | No | No | Yes (cloud) |
+| Computer-use agent | 26-tool agent + Mimicry system | No | No | No | Yes (cloud) |
 | Safety gates | Pre-action checks + undo manager | No | No | No | No |
 | Meeting intelligence | Whisper + summaries + speaker attribution | No | No | No | No |
 | Learned procedures | Workflow replay from observation | No | No | No | No |
@@ -86,7 +86,7 @@ Shadow records your Mac like a studio records a band. Each signal gets its own t
 
 **Understand.** Episode generation detects activity boundaries and produces structured work units with LLM summaries. A proactive heartbeat runs two-tier analysis and pushes suggestions without being asked. Semantic search combines CLIP vector embeddings (search by meaning), Tantivy full-text search, and timeline queries. Meeting intelligence transcribes, summarizes, and attributes speakers. Pattern detection over weeks reflects how you actually work: when your focus happens, how you communicate, what you consistently underestimate. A two-tier local LLM system (7B for fast tasks, 32B for deep reasoning) runs entirely on Apple Silicon with KV-cache session reuse that drops first-token latency from 14 seconds to under 1 second across multi-turn conversations.
 
-**Act.** A 25-tool agent runtime with streaming UI handles search, context retrieval, visual analysis, AX-based actions, and memory operations. The Mimicry system watches how you perform tasks, synthesizes replayable procedures, and executes them through a safety-gated pipeline with pre-action checks, post-action verification, and undo support. A grounding oracle cascades through four strategies: AX exact match, AX fuzzy match, on-device VLM (ShowUI-2B), and cloud vision. 70-80% of interactions are resolved by the free, instant AX path. Built-in LoRA training generates grounding data from your actual clicks and fine-tunes the vision model to your specific apps and workflows. When the agent takes actions, those events are tagged and excluded from recording. Shadow learns from you, not from itself.
+**Act.** A 26-tool agent runtime with streaming UI handles search, context retrieval, visual analysis, AX-based actions, and memory operations. The Mimicry system watches how you perform tasks, synthesizes replayable procedures, and executes them through a safety-gated pipeline with pre-action checks, post-action verification, and undo support. A grounding oracle cascades through four strategies: AX exact match, AX fuzzy match, on-device VLM (ShowUI-2B), and cloud vision. 70-80% of interactions are resolved by the free, instant AX path. Built-in LoRA training generates grounding data from your actual clicks and fine-tunes the vision model to your specific apps and workflows. When the agent takes actions, those events are tagged and excluded from recording. Shadow learns from you, not from itself.
 
 **Remember.** A semantic memory store holds knowledge entries by category: preferences, facts, patterns, relationships, skills. Directive memory stores your instructions. Behavioral search finds past workflows similar to what you are doing now. Procedure matching surfaces learned workflows when context suggests they are relevant. Three-tier retention manages storage automatically: hot (7 days, full video and audio), warm (8-30 days, keyframes and transcripts), cold (31+ days, indices only). Transcripts are never deleted until their source audio has been fully transcribed. Storage stays under a configurable cap.
 
@@ -142,7 +142,7 @@ Shadow (macOS menu bar app, Swift + Rust)
 |   |-- nomic-embed         text embeddings
 |   |-- Episode engine      boundary detection + summarization
 |   |-- Proactive heartbeat fast 10min / deep 30min, push suggestions
-|   |-- Agent runtime       25 tools, streaming UI, task decomposition
+|   |-- Agent runtime       26 tools, streaming UI, task decomposition
 |   +-- Mimicry             procedure learning, safety gates, undo support
 |
 +-- UI (SwiftUI, native macOS)
@@ -162,7 +162,8 @@ cd shadow
 # Build Rust storage engine and generate Swift bindings
 ./scripts/build-rust.sh
 
-# Download CLIP models (~190 MB)
+# Install Python dependencies and download CLIP models (~190 MB)
+pip3 install huggingface_hub open_clip_torch
 python3 scripts/provision-clip-models.py
 
 # Generate Xcode project and build
@@ -173,7 +174,7 @@ xcodebuild -project Shadow/Shadow.xcodeproj -scheme Shadow -configuration Debug 
 open ~/Library/Developer/Xcode/DerivedData/Shadow-*/Build/Products/Debug/Shadow.app
 ```
 
-Requires Apple Silicon (M1 or later), macOS 14+, Xcode 16.4+, Rust via rustup, XcodeGen (`brew install xcodegen`). Grant permissions when prompted. After granting Screen Recording, quit and relaunch.
+Requires Apple Silicon (M1 or later), macOS 14+, Xcode 16.4+, Rust via rustup, Python 3.8+, XcodeGen (`brew install xcodegen`). The Qwen 32B model requires 48 GB+ RAM. Grant permissions when prompted. After granting Screen Recording, quit and relaunch.
 
 ## Privacy
 
@@ -183,7 +184,7 @@ Passwords and sensitive fields are detected at the CGEventTap level and excluded
 
 Cloud LLM features (Claude, GPT) are opt-in with your own API key. When disabled, all intelligence runs locally via MLX on Apple Silicon.
 
-This is open source. You do not need to trust a privacy policy. Read the code.
+This is open source. You do not need to trust a privacy policy. Read the code. See [PRIVACY.md](PRIVACY.md) for the full data handling details.
 
 ## Contributing
 
